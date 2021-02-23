@@ -9,11 +9,8 @@ val ReduxDevToolsVersion = "^2.13.0"
 
 val StaticTagsVersion = "2.6.1"
 
-publishArtifact in ThisBuild := false
-
 val commonSettings = Seq(
   organization := "org.scommons.shogowada",
-  name := "scalajs-reactjs",
 
   crossScalaVersions := Seq("2.12.2", "2.13.1"),
   scalaVersion := "2.12.2",
@@ -24,6 +21,7 @@ val commonSettings = Seq(
   //resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
 
   sonatypeProfileName := "org.scommons",
+  publishArtifact := false,
   publishMavenStyle := true,
   publishArtifact in Test := false,
   publishTo := {
@@ -63,9 +61,42 @@ val commonSettings = Seq(
   }
 )
 
+lazy val root = (project in file("."))
+    .settings(commonSettings: _*)
+    .settings(
+      crossScalaVersions := Nil, //must be set to Nil on the aggregating project
+      skip in publish := true,
+      publish := ((): Unit),
+      publishLocal := ((): Unit),
+      publishM2 := ((): Unit)
+    )
+    .aggregate(
+      core,
+      history,
+      router,
+      routerDom,
+      redux,
+      reduxDevTools,
+      routerRedux,
+      exampleCustomVirtualDOM,
+      exampleHelloWorld,
+      exampleHelloWorldFunction,
+      exampleInteractiveHelloWorld,
+      exampleLifecycle,
+      exampleReduxDevTools,
+      exampleReduxMiddleware,
+      exampleRouter,
+      exampleRouterRedux,
+      exampleStyle,
+      exampleTodoApp,
+      exampleTodoAppRedux,
+      exampleTest
+    )
+
 lazy val core = project.in(file("core"))
     .settings(commonSettings: _*)
     .settings(
+      name := "scalajs-reactjs",
       libraryDependencies ++= Seq(
         "org.scala-js" %%% "scalajs-dom" % "0.9.8",
         "org.scommons.shogowada" %%% "statictags" % StaticTagsVersion
@@ -97,7 +128,7 @@ lazy val history = project.in(file("history"))
 lazy val router = project.in(file("router"))
     .settings(commonSettings: _*)
     .settings(
-      name += "-router",
+      name := "scalajs-reactjs-router",
       npmDependencies in Compile ++= Seq(
         "react-router" -> ReactRouterVersion
       ),
@@ -111,7 +142,7 @@ lazy val router = project.in(file("router"))
 lazy val routerDom = project.in(file("router-dom"))
     .settings(commonSettings: _*)
     .settings(
-      name += "-router-dom",
+      name := "scalajs-reactjs-router-dom",
       npmDependencies in Compile ++= Seq(
         "react-router-dom" -> ReactRouterVersion
       ),
@@ -125,7 +156,7 @@ lazy val routerDom = project.in(file("router-dom"))
 lazy val redux = project.in(file("redux"))
     .settings(commonSettings: _*)
     .settings(
-      name += "-redux",
+      name := "scalajs-reactjs-redux",
       npmDependencies in Compile ++= Seq(
         "react-redux" -> ReactReduxVersion,
         "redux" -> ReduxVersion
@@ -140,7 +171,7 @@ lazy val redux = project.in(file("redux"))
 lazy val reduxDevTools = project.in(file("redux-devtools"))
     .settings(commonSettings: _*)
     .settings(
-      name += "-redux-devtools",
+      name := "scalajs-reactjs-redux-devtools",
       npmDependencies in Compile ++= Seq(
         "redux-devtools-extension" -> ReduxDevToolsVersion
       ),
@@ -154,7 +185,7 @@ lazy val reduxDevTools = project.in(file("redux-devtools"))
 lazy val routerRedux = project.in(file("router-redux"))
     .settings(commonSettings: _*)
     .settings(
-      name += "-router-redux",
+      name := "scalajs-reactjs-router-redux",
       npmDependencies in Compile ++= Seq(
         "react-router-redux" -> ReactRouterReduxVersion
       ),
@@ -166,7 +197,7 @@ lazy val routerRedux = project.in(file("router-redux"))
     .dependsOn(core, history, router, redux)
 
 val exampleCommonSettings = commonSettings ++ Seq(
-  name += "-example",
+  name := "scalajs-reactjs-example",
   scalaJSUseMainModuleInitializer := true,
   (unmanagedResourceDirectories in Compile) += baseDirectory.value / "src" / "main" / "webapp"
 )
@@ -272,7 +303,7 @@ lazy val exampleTest = project.in(file("example") / "test")
     .settings(commonSettings: _*)
     .settings(Defaults.itSettings: _*)
     .settings(
-      name += "-example-test",
+      name := "scalajs-reactjs-example-test",
       libraryDependencies ++= Seq(
         "org.eclipse.jetty" % "jetty-server" % "9.+",
 
