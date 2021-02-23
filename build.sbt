@@ -7,14 +7,13 @@ val ReactRouterReduxVersion = "next"
 val ReduxVersion = "^3.6.0"
 val ReduxDevToolsVersion = "^2.13.0"
 
-val StaticTagsVersion = "2.5.0" //TODO: 2.6.0
+val StaticTagsVersion = "2.6.0-SNAPSHOT"
+
+publishArtifact in ThisBuild := false
 
 val commonSettings = Seq(
-  organization := "io.github.shogowada",
+  organization := "org.scommons.shogowada",
   name := "scalajs-reactjs",
-  version := "0.15.0-SNAPSHOT",
-  licenses := Seq("MIT" -> url("https://opensource.org/licenses/MIT")),
-  homepage := Some(url("https://github.com/shogowada/scalajs-reactjs")),
 
   crossScalaVersions := Seq("2.12.2", "2.13.1"),
   scalaVersion := "2.12.2",
@@ -22,26 +21,46 @@ val commonSettings = Seq(
     "-deprecation", "-unchecked", "-feature", "-Xcheckinit", "-target:jvm-1.8", "-Xfatal-warnings"
   ),
 
+  resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
+
+  sonatypeProfileName := "org.scommons",
   publishMavenStyle := true,
+  publishArtifact in Test := false,
   publishTo := {
-    val nexus = "https://oss.sonatype.org/"
-    isSnapshot.value match {
-      case true => Some("snapshots" at nexus + "content/repositories/snapshots")
-      case false => Some("releases" at nexus + "service/local/staging/deploy/maven2")
-    }
+    if (isSnapshot.value)
+      Some("snapshots" at "https://oss.sonatype.org/content/repositories/snapshots")
+    else
+      Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
   },
-  publishArtifact := false,
-  pomExtra := <scm>
-    <url>git@github.com:shogowada/scalajs-reactjs.git</url>
-    <connection>scm:git:git@github.com:shogowada/scalajs-reactjs.git</connection>
-  </scm>
-      <developers>
-        <developer>
-          <id>shogowada</id>
-          <name>Shogo Wada</name>
-          <url>https://github.com/shogowada</url>
-        </developer>
-      </developers>
+  pomExtra := {
+    <url>https://github.com/scommons/scalajs-reactjs</url>
+        <licenses>
+          <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+          </license>
+        </licenses>
+        <scm>
+          <url>git@github.com:scommons/scalajs-reactjs.git</url>
+          <connection>scm:git@github.com:scommons/scalajs-reactjs.git</connection>
+        </scm>
+        <developers>
+          <developer>
+            <id>shogowada</id>
+            <name>Shogo Wada</name>
+            <url>https://github.com/shogowada</url>
+          </developer>
+          <developer>
+            <id>viktorp</id>
+            <name>Viktor Podzigun</name>
+            <url>https://github.com/viktor-podzigun</url>
+          </developer>
+        </developers>
+  },
+  pomIncludeRepository := {
+    _ => false
+  }
 )
 
 lazy val core = project.in(file("core"))
@@ -49,7 +68,7 @@ lazy val core = project.in(file("core"))
     .settings(
       libraryDependencies ++= Seq(
         "org.scala-js" %%% "scalajs-dom" % "0.9.8",
-        "io.github.shogowada" %%% "statictags" % StaticTagsVersion
+        "org.scommons.shogowada" %%% "statictags" % StaticTagsVersion
       ),
       npmDependencies in Compile ++= Seq(
         "create-react-class" -> CreateReactClassVersion,

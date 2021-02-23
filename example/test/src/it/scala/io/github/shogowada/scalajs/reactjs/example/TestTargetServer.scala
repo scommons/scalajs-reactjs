@@ -64,7 +64,7 @@ object TestTargetServers {
 
   def init(server: TestTargetServer): TestTargetServer = {
     server.start()
-    sys.addShutdownHook { () =>
+    sys.addShutdownHook {
       server.stop()
     }
     server

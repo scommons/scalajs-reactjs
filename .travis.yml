@@ -3,17 +3,32 @@ sudo: required
 jdk:
   - oraclejdk8
 dist: trusty
+branches:
+  only:
+  - master
+  - /^v\d+\.\d+\.\d+$/
 scala:
   - 2.12.2
-#  - 2.13.1 #TODO
+  - 2.13.1
 env:
+  global:
+  - TRAVIS_SBT_VERSION="1.2.8"
+  - secure: S9TAeXE7pKYoszKlmgT7E9s09SRrpv7QrbNfpC5nEgsaAtTrrfgglosmjkJ4GokZ4YKvFPYGRiNhN/ntp/yFej+yzXMnkNn0tvvaH6GkUyEsV9NypPS7Yyev85R5WNiZgsefBBiy4cschUhVlOzUpfnBKPkCazr5LxYbf6A0SWOpQTj3mhvfl2oHEGJ2QZxhd0Xy2+jUYjhSXo24HHON0A3xAxVIf1LE0rKY9u4um5puymD66RYkNaBv5QnSyUt4fh2A6jF3QRikxONI0w867s8EGxR3dSVtAqP0u8h/vYIsqnwrHyyZU9AB4/crBbpx73xHOyA5DwMHQsgFsCCFGN+od52F+tFA4kxkwdZRlhZ8yXOURAy1wvcx/wacWzJZbHIvjtX4ZmUgoUM31WQB5OPC5lbvB2gJtoktocy/hz3q9RRda3gkIBIQ69p4H3ypAkEN6Fxs0/BJ4096xuzcRYp60uksIEc9DH+GcobZ1nm8XONEF8fad78G+RiFnvwr3UzWH0buzMw2pEx1ksn3PGOWQrglCU6wY1WwqSH/3HFeWQrEtcfE1It7pr47UNTFFP3H4A4X9er17WKCTm86wb2Zi1QVB5y1R5lYQ3TuIQK84IPp1LcYQtHEfQips+y8vMlKV1FShfV/+H5NLPOPHEZNBKsBcRy41uHCYIBZ3co=
+  - secure: OwPfZspwerhelAZIL0RoH1DCHRCpfMONKw4n2ngRutckuzMXL7PC2FMuMTZOlZNAGu26bBEuixFqQNP4roPppe6U/ZTyr/BE84PJwWKkStTyMTWCTQPAwQkRyUZkLStgjEdSL2kAAe8kvJtJ0NPau+RlSL6T789J2T2tFfnCO7hb/cCnGtD2rUPgswos4wVgPebAHVOltBCcw+TKZDbMoxFlPXqdZRuYgBvWrAX9LDI1VbLS7o+Pq6/0jy9NpPyX3V1BVNPof4bQPDypi+Kv6c0nlcO40tSRjk9t7/7pj7OobonLFdykyvB1MFRKx7dKLWgSK0XhGWJdVAMZ0tPH4PlBAp9fZzXntIj7n9P65kizFFPN9WiDEkCGg1GLdMLdMMUpokTYfkamFaoYFvjHQetCZrGCFx3MOdu39+fYsy5XDvLbFV8FDDqH3w9BkcJQUmD4Wd+iYBqb3j8LU+qxguGE+eN1IFMqqEe1rfF2+QcBrbmXCY6yqqPaIIRhNpE3jrh0rCMoxcnIVIFqwACT4yTRWMz5p6mPUVrxIKAGz0vTFYkuR9v72yDw3MGtw4me1X1RRQyM0MvZphzKYRWCxmDGn0S/LG/8GLMrOmAvX6QK1PrigIfLRQtDNyPvivhg6d8X5rL1Q+F2Y7nkDx77CZX/CsMskTrLnjfRx2BuvQQ=
+  - secure: GoTlvDux+PjwBLF2ag7JRNptyORIfZAqR03LM9NMJIuoUh1e2BSSI1ABNZRv0EyR6qDwIiNfDwaq4wgJhbBQavVyy19/lv/x79Rjq2bXxKOZJs3iNHAvSpE71tf/H9H4xQ/slNv1v6W6XGajpXffg2+P4DvHeriivGmxvT3Y3HlkQrFhNnk3ODD9JS5YAnrtveiBcdDgNTcA9Th30+BbZb2VJb/wKmsu+qDVDKcsZrAg0jrhT4mU2u3VnxeSetq6dDPFvZ+2vFqp0n7XfszV1ZV0Omy0D4R0K8ABbJTGxcgsigREfRDRebsXQySRVA4F5nFJv784wTfQHwy9f9WIznpIkrVbDMREoT4zxCF9XdXdMpPHh/DlKLuXZ/iCntARoIF1dkNAq2P2mP4Gbye6FTAsmn5wLYqXWUvKIWlaMUOy9xzChj/B8jlmXWJjP4etpkwTeYvV+wOZFQna/fugOYpZKyu4JLkhqGkk+7f3TL1zfIBfpeZpSpiisT+el1JL4otr7AXTYTQFqWZbwHtPhkeYj4VxyxlyZQ04guEf2KgSa0ogQS7CJjMLdMwz1qVFpY0lodPZpsBFgpF3dlB8A2MfhnxF/ZGvxZUa6GnhaTalbFTFVZZRf2ULI9w0OHlkOWLQrdM83rIDN/ZR3yhjAqrpLrfh5HbhsUsFxOUVV5I=
+  jobs:
   - SCALAJS_VERSION=0.6.31
-#  - SCALAJS_VERSION=1.1.0 #TODO
+  - SCALAJS_VERSION=1.1.0
 addons:
   chrome: stable
   apt:
     packages:
       - chromium-chromedriver
+before_install:
+- if [ $TRAVIS_PULL_REQUEST = 'false' ]; then
+    openssl aes-256-cbc -K $encrypted_9575f030309c_key -iv $encrypted_9575f030309c_iv -in travis/secrets.tar.enc -out travis/secrets.tar -d;
+    tar xv -C travis -f travis/secrets.tar;
+  fi
 before_script:
   - sudo ln --symbolic /usr/lib/chromium-browser/chromedriver "/usr/local/bin/chromedriver"
   - "export DISPLAY=:99"
@@ -23,7 +38,18 @@ before_script:
   - "nvm install node"
   - "nvm use node"
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION fastOptJS::webpack it:test
+- sbt ++$TRAVIS_SCALA_VERSION fastOptJS::webpack it:test &&
+  if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]; then
+    if [ -z "$TRAVIS_TAG" ]; then
+       echo "Publish a snapshot";
+       sbt ++$TRAVIS_SCALA_VERSION clean publish;
+    else
+       echo "Publish a release version=$TRAVIS_TAG";
+       version=$TRAVIS_TAG sbt ++$TRAVIS_SCALA_VERSION clean publishSigned sonatypeRelease;
+    fi
+  else
+    echo "This is not a master branch commit. Skipping the publish/release step";
+  fi
 cache:
   directories:
   - "$HOME/.ivy2/cache"

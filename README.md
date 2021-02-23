@@ -1,10 +1,15 @@
 # scalajs-reactjs
 
-[![Build Status](https://travis-ci.org/shogowada/scalajs-reactjs.svg?branch=master)](https://travis-ci.org/shogowada/scalajs-reactjs)
+[![Build Status](https://travis-ci.com/scommons/scalajs-reactjs.svg?branch=master)](https://travis-ci.com/scommons/scalajs-reactjs)
+[![scala-index](https://index.scala-lang.org/scommons/scalajs-reactjs/scalajs-reactjs/latest.svg)](https://index.scala-lang.org/scommons/scalajs-reactjs/scalajs-reactjs)
+[![Scala.js 0.6](https://www.scala-js.org/assets/badges/scalajs-0.6.29.svg)](https://www.scala-js.org)
+[![Scala.js 1.0](https://www.scala-js.org/assets/badges/scalajs-1.1.0.svg)](https://www.scala-js.org)
 
-Develop React applications with Scala. It is compatible with Scala 2.12 and Scala.js 0.6.14.
+Develop React applications with Scala.
 
-Optionally include react-router and react-redux facades, too.
+It is compatible with Scala `2.12`, `2.13` and Scala.js `0.6.31`, `1.1.0`
+
+Optionally include `react-router` and `react-redux` facades, too.
 
 ## Quick Look
 
@@ -40,11 +45,11 @@ ReactDOM.render(<.div(^.id := "hello-world")("Hello, World!"), mountNode)
 2. Depend on the libraries.
    ```
    libraryDependencies ++= Seq(
-     "io.github.shogowada" %%% "scalajs-reactjs" % "0.14.0", // For react facade
-     "io.github.shogowada" %%% "scalajs-reactjs-router-dom" % "0.14.0", // Optional. For react-router-dom facade
-     "io.github.shogowada" %%% "scalajs-reactjs-router-redux" % "0.14.0", // Optional. For react-router-redux facade
-     "io.github.shogowada" %%% "scalajs-reactjs-redux" % "0.14.0", // Optional. For react-redux facade
-     "io.github.shogowada" %%% "scalajs-reactjs-redux-devtools" % "0.14.0" // Optional. For redux-devtools facade
+     "org.scommons.shogowada" %%% "scalajs-reactjs" % "0.15.0", // For react facade
+     "org.scommons.shogowada" %%% "scalajs-reactjs-router-dom" % "0.15.0", // Optional. For react-router-dom facade
+     "org.scommons.shogowada" %%% "scalajs-reactjs-router-redux" % "0.15.0", // Optional. For react-router-redux facade
+     "org.scommons.shogowada" %%% "scalajs-reactjs-redux" % "0.15.0", // Optional. For react-redux facade
+     "org.scommons.shogowada" %%% "scalajs-reactjs-redux-devtools" % "0.15.0" // Optional. For redux-devtools facade
    )
    ```
 
