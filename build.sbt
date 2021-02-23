@@ -7,7 +7,7 @@ val ReactRouterReduxVersion = "next"
 val ReduxVersion = "^3.6.0"
 val ReduxDevToolsVersion = "^2.13.0"
 
-val StaticTagsVersion = "2.6.0-SNAPSHOT"
+val StaticTagsVersion = "2.6.1"
 
 publishArtifact in ThisBuild := false
 
@@ -21,7 +21,7 @@ val commonSettings = Seq(
     "-deprecation", "-unchecked", "-feature", "-Xcheckinit", "-target:jvm-1.8", "-Xfatal-warnings"
   ),
 
-  resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
+  //resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
 
   sonatypeProfileName := "org.scommons",
   publishMavenStyle := true,
