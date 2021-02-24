@@ -24,12 +24,7 @@ val commonSettings = Seq(
   publishArtifact := false,
   publishMavenStyle := true,
   publishArtifact in Test := false,
-  publishTo := {
-    if (isSnapshot.value)
-      Some("snapshots" at "https://oss.sonatype.org/content/repositories/snapshots")
-    else
-      Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
-  },
+  publishTo := sonatypePublishToBundle.value,
   pomExtra := {
     <url>https://github.com/scommons/scalajs-reactjs</url>
         <licenses>
