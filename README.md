@@ -2,12 +2,11 @@
 
 [![Build Status](https://travis-ci.com/scommons/scalajs-reactjs.svg?branch=master)](https://travis-ci.com/scommons/scalajs-reactjs)
 [![scala-index](https://index.scala-lang.org/scommons/scalajs-reactjs/scalajs-reactjs/latest.svg)](https://index.scala-lang.org/scommons/scalajs-reactjs/scalajs-reactjs)
-[![Scala.js 0.6](https://www.scala-js.org/assets/badges/scalajs-0.6.29.svg)](https://www.scala-js.org)
 [![Scala.js 1.0](https://www.scala-js.org/assets/badges/scalajs-1.1.0.svg)](https://www.scala-js.org)
 
 Develop React applications with Scala.
 
-It is compatible with Scala `2.12`, `2.13` and Scala.js `0.6.31`, `1.1.0`
+It is compatible with Scala `2.12`, `2.13` and Scala.js `1.1.0`.
 
 Optionally include `react-router` and `react-redux` facades, too.
 
