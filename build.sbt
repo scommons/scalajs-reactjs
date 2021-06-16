@@ -1,6 +1,6 @@
 val CreateReactClassVersion = "^15.5.1"
 val HistoryVersion = "^4.6.1"
-val ReactVersion = "^15.5.3"
+val ReactVersion = "^16.8.0"
 val ReactReduxVersion = "^5.0.3"
 val ReactRouterVersion = "^4.0.0"
 val ReactRouterReduxVersion = "next"
